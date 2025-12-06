@@ -7,12 +7,16 @@
     <title>Pokedex</title>
 
     <style>
+        html, body {
+            height: 100%;
+            overflow-y: auto;
+        }
+
         body {
             background-image: url("https://wallpapercave.com/wp/wp8813120.jpg");
             background-size: cover;
             margin: 0;
             font-family: Arial, sans-serif;
-            overflow-y: auto;
         }
 
         .header {
@@ -235,7 +239,6 @@
                 <div id="debilidades-flex" class="tipo-flex"></div>
             </div>
 
-            <!-- ⭐ DESCRIPCIÓN AQUÍ ⭐ -->
             <h3 style="margin-top:20px;">Descripción</h3>
             <div id="descripcion"></div>
 
@@ -255,9 +258,6 @@
 
     <script>
 
-        /* ===========================================================
-           TRAER DESCRIPCIÓN
-        ============================================================ */
         async function cargarDescripcion(id) {
             const res = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
             const data = res.data;
@@ -390,9 +390,6 @@
             return final.map(n => ({ name: n }));
         }
 
-        /* =====================================================
-             FUNCIÓN PRINCIPAL (TRAER)
-        ===================================================== */
         async function traer() {
             let pokemon = document.getElementById("pok").value.toLowerCase().trim();
 
@@ -410,7 +407,6 @@
                 let peso = (data.weight / 10).toFixed(1) + " kg";
                 let altura = (data.height / 10).toFixed(1) + " m";
 
-
                 applyTypeColors(data.types);
 
                 document.getElementById("img").src =
@@ -419,8 +415,6 @@
                 renderStats(data.stats);
                 renderTypes(data.types);
                 renderWeaknesses(data.types);
-
-                // ⭐ Cargar descripción ⭐
                 cargarDescripcion(data.id);
 
                 document.getElementById("alturaFooter").textContent = "Altura: " + altura;
@@ -437,5 +431,4 @@
 </body>
 
 </html>
-
 
